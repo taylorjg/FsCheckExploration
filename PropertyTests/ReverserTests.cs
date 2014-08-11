@@ -20,11 +20,10 @@ namespace PropertyTests
         }
 
         [FsCheck.NUnit.Property]
-        public void TestUsingFsCheck()
+        public void TestUsingFsCheck2()
         {
-            var gen = Any.OfType<string>();
             Spec
-                .For(gen, s => s.Reverse().Reverse() == s)
+                .ForAny<string>(s => s.Reverse().Reverse() == s)
                 .QuickCheckThrowOnFailure();
         }
     }
