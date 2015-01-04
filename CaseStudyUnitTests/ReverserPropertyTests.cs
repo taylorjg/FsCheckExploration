@@ -1,11 +1,10 @@
-﻿using Code;
-using FsCheck.Fluent;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using CaseStudy;
 
-namespace PropertyTests
+namespace CaseStudyUnitTests
 {
     [TestFixture]
-    internal class ReverserTests
+    internal class ReverserPropertyTests
     {
         [TestCase(null)]
         [TestCase("")]
@@ -17,14 +16,6 @@ namespace PropertyTests
         public void StringReversedAndThenReversedAgainIsSameAsOriginalString(string s)
         {
             Assert.That(s.Reverse().Reverse(), Is.EqualTo(s));
-        }
-
-        [FsCheck.NUnit.Property]
-        public void TestUsingFsCheck2()
-        {
-            Spec
-                .ForAny<string>(s => s.Reverse().Reverse() == s)
-                .QuickCheckThrowOnFailure();
         }
     }
 }
