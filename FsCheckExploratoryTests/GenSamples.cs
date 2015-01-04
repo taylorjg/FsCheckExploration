@@ -213,6 +213,7 @@ namespace FsCheckExploratoryTests
             var genPositiveInt = Gen.suchThat(intIsPositive, Arb.Default.Int32().Generator);
             var charIsA2Z = FSharpFunc<char, bool>.FromConverter(c => c >= 'A' && c <= 'Z');
             var genCharA2Z = Gen.suchThat(charIsA2Z, Arb.Default.Char().Generator);
+            // TODO: we may need some currying helpers...
             var f = FSharpFunc<int, FSharpFunc<char, string>>.FromConverter(i => FSharpFunc<char, string>.FromConverter(c => new string(c, i)));
             var genMap2 = Gen.map2(f, genPositiveInt, genCharA2Z);
             genMap2.DumpSamples();
@@ -245,7 +246,20 @@ namespace FsCheckExploratoryTests
             genApply.DumpSamples();
         }
 
-        // Also, show Gen.apply being used with curried function of multiple parameters - an alternative to using map, map2, etc.
+        [Test]
+        public void GenApplyTwice()
+        {
+            var intIsPositive = FSharpFunc<int, bool>.FromConverter(i => i >= 0);
+            var genPositiveInt = Gen.suchThat(intIsPositive, Arb.Default.Int32().Generator);
+            var charIsA2Z = FSharpFunc<char, bool>.FromConverter(c => c >= 'A' && c <= 'Z');
+            var genCharA2Z = Gen.suchThat(charIsA2Z, Arb.Default.Char().Generator);
+            // TODO: we may need some currying helpers...
+            var func = FSharpFunc<int, FSharpFunc<char, string>>.FromConverter(i => FSharpFunc<char, string>.FromConverter(c => new string(c, i)));
+            var genFunc1 = Gen.constant(func);
+            var genFunc2 = Gen.apply(genFunc1, genPositiveInt);
+            var genApply = Gen.apply(genFunc2, genCharA2Z);
+            genApply.DumpSamples();
+        }
 
         // Custom generators for a custom type e.g. Employee
 
