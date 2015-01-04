@@ -8,13 +8,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6EF603
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseStudyPropertyTests", "PropertyTests\CaseStudyPropertyTests.csproj", "{1A7974DE-48CE-4275-8849-95F474738F5C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseStudy", "CaseStudy\CaseStudy.csproj", "{48DB5C4C-B5F1-4E93-9742-B584996AAC18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseStudyUnitTests", "CaseStudyUnitTests\CaseStudyUnitTests.csproj", "{C9320187-492E-4558-B62C-51D34864C1B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FsCheckExploratoryTests", "FsCheckExploratoryTests\FsCheckExploratoryTests.csproj", "{67861521-65F1-470C-9D9B-9F885A97034F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaseStudyPropertyTests", "CaseStudyPropertyTests\CaseStudyPropertyTests.csproj", "{1A7974DE-48CE-4275-8849-95F474738F5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A7974DE-48CE-4275-8849-95F474738F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A7974DE-48CE-4275-8849-95F474738F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A7974DE-48CE-4275-8849-95F474738F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A7974DE-48CE-4275-8849-95F474738F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{48DB5C4C-B5F1-4E93-9742-B584996AAC18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{48DB5C4C-B5F1-4E93-9742-B584996AAC18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48DB5C4C-B5F1-4E93-9742-B584996AAC18}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,6 +34,10 @@ Global
 		{67861521-65F1-470C-9D9B-9F885A97034F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67861521-65F1-470C-9D9B-9F885A97034F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67861521-65F1-470C-9D9B-9F885A97034F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A7974DE-48CE-4275-8849-95F474738F5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A7974DE-48CE-4275-8849-95F474738F5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A7974DE-48CE-4275-8849-95F474738F5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A7974DE-48CE-4275-8849-95F474738F5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
