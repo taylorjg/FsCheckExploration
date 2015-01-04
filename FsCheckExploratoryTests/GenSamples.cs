@@ -196,21 +196,59 @@ namespace FsCheckExploratoryTests
             genSuchThatOption.DumpSamples();
         }
 
-        // Gen.map
-        // Gen.map2
-        // Gen.map3
-        // Gen.map4
-        // Gen.map5
-        // Gen.map6
+        [Test]
+        public void GenMap()
+        {
+            var intIsPositive = FSharpFunc<int, bool>.FromConverter(i => i >= 0);
+            var genPositiveInt = Gen.suchThat(intIsPositive, Arb.Default.Int32().Generator);
+            var intToStringOfXs = FSharpFunc<int, string>.FromConverter(i => new string('X', i));
+            var genMap = Gen.map(intToStringOfXs, genPositiveInt);
+            genMap.DumpSamples();
+        }
 
-        // Gen.resize
+        [Test]
+        public void GenMap2()
+        {
+            var intIsPositive = FSharpFunc<int, bool>.FromConverter(i => i >= 0);
+            var genPositiveInt = Gen.suchThat(intIsPositive, Arb.Default.Int32().Generator);
+            var charIsA2Z = FSharpFunc<char, bool>.FromConverter(c => c >= 'A' && c <= 'Z');
+            var genCharA2Z = Gen.suchThat(charIsA2Z, Arb.Default.Char().Generator);
+            var f = FSharpFunc<int, FSharpFunc<char, string>>.FromConverter(i => FSharpFunc<char, string>.FromConverter(c => new string(c, i)));
+            var genMap2 = Gen.map2(f, genPositiveInt, genCharA2Z);
+            genMap2.DumpSamples();
+        }
 
-        // Gen.sized
+        [Test]
+        public void GenSized()
+        {
+            var genInt = Arb.from<int>().Generator;
+            var genSized = Gen.sized(FSharpFunc<int, Gen<int[]>>.FromConverter(size => Gen.arrayOfLength(size, genInt)));
+            genSized.DumpSamples(xs => Formatters.FormatCollection(xs));
+        }
 
-        // Gen.apply
+        [Test]
+        public void GenResize()
+        {
+            var genIntArray = Arb.from<int[]>().Generator;
+            var genResize = Gen.resize(20, genIntArray);
+            genResize.DumpSamples(xs => Formatters.FormatCollection(xs));
+        }
 
-        // - custom generators
-        //  - e.g. list of valid rolls for bowling
-        //  - for custom type e.g. Employee
+        [Test]
+        public void GenApply()
+        {
+            var intToStringOfXs = FSharpFunc<int, string>.FromConverter(i => new string('X', i));
+            var genFunc = Gen.constant(intToStringOfXs);
+            var intIsPositive = FSharpFunc<int, bool>.FromConverter(i => i >= 0);
+            var genPositiveInt = Gen.suchThat(intIsPositive, Arb.Default.Int32().Generator);
+            var genApply = Gen.apply(genFunc, genPositiveInt);
+            genApply.DumpSamples();
+        }
+
+        // Also, show Gen.apply being used with curried function of multiple parameters - an alternative to using map, map2, etc.
+
+        // Custom generators for a custom type e.g. Employee
+
+        // Custom generators that use the query pattern e.g. generating a list of rolls for a bowling game
     }
 }
