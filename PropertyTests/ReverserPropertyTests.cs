@@ -8,7 +8,7 @@ namespace CaseStudyPropertyTests
     internal class ReverserPropertyTests
     {
         [FsCheck.NUnit.Property]
-        public void TestUsingFsCheck2()
+        public void StringReversedAndThenReversedAgainIsSameAsOriginalString()
         {
             Spec
                 .ForAny<string>(s => s.Reverse().Reverse() == s)
