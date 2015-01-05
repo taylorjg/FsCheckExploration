@@ -37,14 +37,14 @@ namespace FsCheckExploratoryTests
         public void GenOfListOfInt()
         {
             var gen = Arb.from<IList<int>>().Generator;
-            gen.DumpSamples(xs => Formatters.FormatCollection(xs));
+            gen.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenOfArrayOfInt()
         {
             var gen = Arb.from<int[]>().Generator;
-            gen.DumpSamples(xs => Formatters.FormatCollection(xs));
+            gen.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -100,55 +100,55 @@ namespace FsCheckExploratoryTests
         public void GenArrayOf()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.arrayOf(gen).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.arrayOf(gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenArrayOfLength()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.arrayOfLength(5, gen).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.arrayOfLength(5, gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenArray2DOf()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.array2DOf(gen).DumpSamples(arr => Formatters.Format2DArray(arr));
+            Gen.array2DOf(gen).DumpSamples(Formatters.Format2DArray);
         }
 
         [Test]
         public void GenArray2DOfDim()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.array2DOfDim(2, 3, gen).DumpSamples(arr => Formatters.Format2DArray(arr));
+            Gen.array2DOfDim(2, 3, gen).DumpSamples(Formatters.Format2DArray);
         }
 
         [Test]
         public void GenListOf()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.listOf(gen).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.listOf(gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenNonEmptyListOf()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.nonEmptyListOf(gen).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.nonEmptyListOf(gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenListOfLength()
         {
             var gen = Arb.from<int>().Generator;
-            Gen.listOfLength(5, gen).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.listOfLength(5, gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenSubListOf()
         {
-            Gen.subListOf(new[] { "A", "B", "C", "D", "E" }).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.subListOf(new[] { "A", "B", "C", "D", "E" }).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace FsCheckExploratoryTests
             var gen2 = Gen.choose(20, 29);
             var gen3 = Gen.choose(30, 39);
             var gens = ListModule.OfSeq(new[] { gen1, gen2, gen3 });
-            Gen.sequence(gens).DumpSamples(xs => Formatters.FormatCollection(xs));
+            Gen.sequence(gens).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -226,7 +226,7 @@ namespace FsCheckExploratoryTests
         {
             var genInt = Arb.from<int>().Generator;
             var genSized = Gen.sized(FSharpFunc<int, Gen<int[]>>.FromConverter(size => Gen.arrayOfLength(size, genInt)));
-            genSized.DumpSamples(xs => Formatters.FormatCollection(xs));
+            genSized.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -234,7 +234,7 @@ namespace FsCheckExploratoryTests
         {
             var genIntArray = Arb.from<int[]>().Generator;
             var genResize = Gen.resize(20, genIntArray);
-            genResize.DumpSamples(xs => Formatters.FormatCollection(xs));
+            genResize.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -281,7 +281,7 @@ namespace FsCheckExploratoryTests
                 from title in genBookTitle
                 from n in genNumBooks
                 select Enumerable.Repeat(title, n);
-            genMultipleBookTitles.DumpSamples(xs => Formatters.FormatCollection(xs));
+            genMultipleBookTitles.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -290,7 +290,7 @@ namespace FsCheckExploratoryTests
             var genBookTitle = Gen.elements(BookTitles);
             var genNumBooks = Gen.choose(0, 5);
             var genMultipleBookTitles = genBookTitle.SelectMany(title => genNumBooks, Enumerable.Repeat);
-            genMultipleBookTitles.DumpSamples(xs => Formatters.FormatCollection(xs));
+            genMultipleBookTitles.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
@@ -302,7 +302,7 @@ namespace FsCheckExploratoryTests
             var genMultipleBookTitles = gb.Bind(genBookTitle, FSharpFunc<string, Gen<IEnumerable<string>>>.FromConverter(
                 title => gb.Bind(genNumBooks, FSharpFunc<int, Gen<IEnumerable<string>>>.FromConverter(
                     n => gb.Return(Enumerable.Repeat(title, n))))));
-            genMultipleBookTitles.DumpSamples(xs => Formatters.FormatCollection(xs));
+            genMultipleBookTitles.DumpSamples(Formatters.FormatCollection);
         }
 
         // TODO: Custom generator for a custom type e.g. Employee
