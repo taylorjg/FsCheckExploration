@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FsCheck;
+using FsCheck.Fluent;
 using Microsoft.FSharp.Collections;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
@@ -8,7 +10,7 @@ using NUnit.Framework;
 namespace FsCheckExploratoryTests
 {
     [TestFixture]
-    internal class GenSamples
+    internal class GenTests
     {
         [Test]
         public void GenOfString()
@@ -261,8 +263,48 @@ namespace FsCheckExploratoryTests
             genApply.DumpSamples();
         }
 
-        // Custom generators for a custom type e.g. Employee
+        private static readonly string[] BookTitles = new[]
+            {
+                "Harry Potter and the Philosopher's Stone",
+                "Harry Potter and the Chamber of Secrets",
+                "Harry Potter and the Prisoner of Azkaban",
+                "Harry Potter and the Goblet of Fire",
+                "Harry Potter and the Order of the Phoenix"
+            };
 
-        // Custom generators that use the query pattern e.g. generating a list of rolls for a bowling game
+        [Test]
+        public void GenMultipleBookTitlesUsingQuerySyntax()
+        {
+            var genBookTitle = Gen.elements(BookTitles);
+            var genNumBooks = Gen.choose(0, 5);
+            var genMultipleBookTitles =
+                from title in genBookTitle
+                from n in genNumBooks
+                select Enumerable.Repeat(title, n);
+            genMultipleBookTitles.DumpSamples(xs => Formatters.FormatCollection(xs));
+        }
+
+        [Test]
+        public void GenMultipleBookTitlesUsingMethodSyntax()
+        {
+            var genBookTitle = Gen.elements(BookTitles);
+            var genNumBooks = Gen.choose(0, 5);
+            var genMultipleBookTitles = genBookTitle.SelectMany(title => genNumBooks, Enumerable.Repeat);
+            genMultipleBookTitles.DumpSamples(xs => Formatters.FormatCollection(xs));
+        }
+
+        [Test]
+        public void GenMultipleBookTitlesUsingDirectGenBuilderCalls()
+        {
+            var genBookTitle = Gen.elements(BookTitles);
+            var genNumBooks = Gen.choose(0, 5);
+            var gb = GenBuilder.gen;
+            var genMultipleBookTitles = gb.Bind(genBookTitle, FSharpFunc<string, Gen<IEnumerable<string>>>.FromConverter(
+                title => gb.Bind(genNumBooks, FSharpFunc<int, Gen<IEnumerable<string>>>.FromConverter(
+                    n => gb.Return(Enumerable.Repeat(title, n))))));
+            genMultipleBookTitles.DumpSamples(xs => Formatters.FormatCollection(xs));
+        }
+
+        // TODO: Custom generator for a custom type e.g. Employee
     }
 }

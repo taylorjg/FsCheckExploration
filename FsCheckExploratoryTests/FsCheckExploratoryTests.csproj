@@ -67,7 +67,7 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Formatters.cs" />
     <Compile Include="GenExtensions.cs" />
-    <Compile Include="GenSamples.cs" />
+    <Compile Include="GenTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
