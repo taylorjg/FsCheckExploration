@@ -5,11 +5,7 @@ using FsCheck.Fluent;
 namespace FsCheckExploratoryTests
 {
     [TestFixture]
-    internal class FluentArbitraryExtensionsTests
+    internal class FluentSpecTests
     {
-        [Test]
-        public void Convert()
-        {
-        }
     }
 }

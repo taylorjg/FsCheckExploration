@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
 using FsCheck;
-using FsCheck.Fluent;
 
 namespace FsCheckExploratoryTests
 {
     [TestFixture]
-    internal class FluentArbitraryExtensionsTests
+    internal class CommandsTests
     {
         [Test]
-        public void Convert()
+        public void AsProperty()
         {
         }
     }

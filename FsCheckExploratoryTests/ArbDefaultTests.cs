@@ -1,15 +1,17 @@
 ﻿using NUnit.Framework;
 using FsCheck;
-using FsCheck.Fluent;
 
 namespace FsCheckExploratoryTests
 {
     [TestFixture]
-    internal class FluentArbitraryExtensionsTests
+    internal class ArbDefaultTests
     {
         [Test]
-        public void Convert()
+        public void DateTime()
         {
+            // Arb.Default.DateTime()
         }
+
+        // etc.
     }
 }
