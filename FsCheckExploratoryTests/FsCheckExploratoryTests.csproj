@@ -71,7 +71,6 @@
     <Compile Include="FluentTests\FluentShrinkTests.cs" />
     <Compile Include="FluentTests\FluentSpecBuilderTests.cs" />
     <Compile Include="FluentTests\FluentSpecTests.cs" />
-    <Compile Include="FluentTests\FluentWeightAndValueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegularTests\ArbDefaultTests.cs" />
     <Compile Include="RegularTests\ArbTests.cs" />

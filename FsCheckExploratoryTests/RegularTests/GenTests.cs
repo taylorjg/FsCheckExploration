@@ -281,8 +281,8 @@ namespace FsCheckExploratoryTests.RegularTests
             var genMultipleBookTitles =
                 from title in genBookTitle
                 from n in genNumBooks
-                select Enumerable.Repeat<string>(title, n);
-            GenExtensions.DumpSamples<IEnumerable<string>>(genMultipleBookTitles, Formatters.FormatCollection);
+                select Enumerable.Repeat(title, n);
+            genMultipleBookTitles.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
