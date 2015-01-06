@@ -1,8 +1,9 @@
-﻿using Microsoft.FSharp.Core;
-using NUnit.Framework;
 using FsCheck;
+using Microsoft.FSharp.Core;
+using NUnit.Framework;
+using FsCheckExploratoryTests.Utils;
 
-namespace FsCheckExploratoryTests
+namespace FsCheckExploratoryTests.RegularTests
 {
     [TestFixture]
     internal class GenOperatorsTests

@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using FsCheck;
 
-namespace FsCheckExploratoryTests
+namespace FsCheckExploratoryTests.Utils
 {
     internal static class GenExtensions
     {

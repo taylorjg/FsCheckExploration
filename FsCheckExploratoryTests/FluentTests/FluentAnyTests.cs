@@ -1,8 +1,6 @@
-﻿using NUnit.Framework;
-using FsCheck;
-using FsCheck.Fluent;
+using NUnit.Framework;
 
-namespace FsCheckExploratoryTests
+namespace FsCheckExploratoryTests.FluentTests
 {
     [TestFixture]
     internal class FluentAnyTests

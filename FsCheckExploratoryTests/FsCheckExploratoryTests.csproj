@@ -64,30 +64,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArbDefaultTests.cs" />
-    <Compile Include="ArbTests.cs" />
-    <Compile Include="CheckTests.cs" />
-    <Compile Include="CommandsTests.cs" />
-    <Compile Include="FluentAnyTests.cs" />
-    <Compile Include="FluentArbitraryExtensionsTests.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="FluentShrinkTests.cs" />
-    <Compile Include="FluentSpecBuilderTests.cs" />
-    <Compile Include="FluentSpecTests.cs" />
-    <Compile Include="FluentWeightAndValueTests.cs" />
-    <Compile Include="Formatters.cs" />
-    <Compile Include="FluentGeneratorExtensionsTests.cs" />
-    <Compile Include="GenExtensions.cs" />
-    <Compile Include="GenOperatorsTests.cs" />
-    <Compile Include="GenTests.cs" />
+    <Compile Include="FluentTests\FluentAnyTests.cs" />
+    <Compile Include="FluentTests\FluentArbitraryExtensionsTests.cs" />
+    <Compile Include="FluentTests\FluentComplexExamples.cs" />
+    <Compile Include="FluentTests\FluentGeneratorExtensionsTests.cs" />
+    <Compile Include="FluentTests\FluentShrinkTests.cs" />
+    <Compile Include="FluentTests\FluentSpecBuilderTests.cs" />
+    <Compile Include="FluentTests\FluentSpecTests.cs" />
+    <Compile Include="FluentTests\FluentWeightAndValueTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropOperatorsTests.cs" />
-    <Compile Include="PropTests.cs" />
-    <Compile Include="RandomTests.cs" />
+    <Compile Include="RegularTests\ArbDefaultTests.cs" />
+    <Compile Include="RegularTests\ArbTests.cs" />
+    <Compile Include="RegularTests\CheckTests.cs" />
+    <Compile Include="RegularTests\CommandsTests.cs" />
+    <Compile Include="RegularTests\GenOperatorsTests.cs" />
+    <Compile Include="RegularTests\GenTests.cs" />
+    <Compile Include="RegularTests\PropOperatorsTests.cs" />
+    <Compile Include="RegularTests\PropTests.cs" />
+    <Compile Include="RegularTests\ReplayTests.cs" />
+    <Compile Include="Utils\EnumerableExtensions.cs" />
+    <Compile Include="Utils\Formatters.cs" />
+    <Compile Include="Utils\GenExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -1,13 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FsCheck;
 using FsCheck.Fluent;
+using FsCheckExploratoryTests.Utils;
 using Microsoft.FSharp.Collections;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
 
-namespace FsCheckExploratoryTests
+namespace FsCheckExploratoryTests.RegularTests
 {
     [TestFixture]
     internal class GenTests
@@ -280,8 +281,8 @@ namespace FsCheckExploratoryTests
             var genMultipleBookTitles =
                 from title in genBookTitle
                 from n in genNumBooks
-                select Enumerable.Repeat(title, n);
-            genMultipleBookTitles.DumpSamples(Formatters.FormatCollection);
+                select Enumerable.Repeat<string>(title, n);
+            GenExtensions.DumpSamples<IEnumerable<string>>(genMultipleBookTitles, Formatters.FormatCollection);
         }
 
         [Test]

@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using FsCheck;
+using NUnit.Framework;
 
-namespace FsCheckExploratoryTests
+namespace FsCheckExploratoryTests.RegularTests
 {
     [TestFixture]
     internal class ArbTests
