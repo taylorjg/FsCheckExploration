@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FluentTests\ConfigurationTests.cs" />
     <Compile Include="FluentTests\FluentAnyTests.cs" />
     <Compile Include="FluentTests\FluentArbitraryExtensionsTests.cs" />
     <Compile Include="FluentTests\FluentComplexExamples.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="RegularTests\PropOperatorsTests.cs" />
     <Compile Include="RegularTests\PropTests.cs" />
     <Compile Include="RegularTests\ReplayTests.cs" />
+    <Compile Include="Utils\ConfigExtensions.cs" />
     <Compile Include="Utils\EnumerableExtensions.cs" />
     <Compile Include="Utils\Formatters.cs" />
     <Compile Include="Utils\GenExtensions.cs" />
