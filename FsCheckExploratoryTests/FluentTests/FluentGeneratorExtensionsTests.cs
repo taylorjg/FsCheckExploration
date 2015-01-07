@@ -1,5 +1,7 @@
+using System;
 using FsCheck;
 using FsCheckExploratoryTests.Utils;
+using Microsoft.FSharp.Core;
 using NUnit.Framework;
 using FsCheck.Fluent;
 
@@ -48,14 +50,28 @@ namespace FsCheckExploratoryTests.FluentTests
             gen.DumpSamples();
         }
 
-        [Test, Description("Same as ?")]
-        public void SelectMany()
+        [Test, Description("Same as delayed bind/return ?")]
+        public void SelectMany1()
         {
+            var genPositiveInt = Arb.Default.PositiveInt().Generator;
+            var gen = genPositiveInt.SelectMany(pi => Any.IntBetween(pi.Item * 10, pi.Item * 10 + 9));
+            gen.DumpSamples();
         }
 
-        [Test, Description("Same as ?")]
+        [Test, Description("Same as delayed bind/bind/map2/return ?")]
+        public void SelectMany2()
+        {
+            var genPositiveInt = Arb.Default.PositiveInt().Generator;
+            var gen = genPositiveInt.SelectMany(pi => Any.IntBetween(pi.Item * 10, pi.Item * 10 + 9), (pi, i) => Tuple.Create(pi.Item, i));
+            gen.DumpSamples();
+        }
+
+        [Test, Description("Same as Arb.fromGen")]
         public void ToArbitrary()
         {
+            var genInt = Any.OfType<int>();
+            var arb = genInt.ToArbitrary();
+            Check.VerboseThrowOnFailure(Prop.forAll(arb, FSharpFunc<int, bool>.FromConverter(i => true)));
         }
 
         [Test, Description("Same as Gen.suchThat")]
