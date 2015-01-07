@@ -3,9 +3,9 @@ using FsCheck;
 using FsCheck.Fluent;
 using Microsoft.FSharp.Collections;
 
-namespace FsCheckExploratoryTests.Utils
+namespace FsCheckUtils
 {
-    internal static class ConfigurationExtensions
+    public static class ConfigurationExtensions
     {
         public static Configuration ToConfiguration(this Config config)
         {

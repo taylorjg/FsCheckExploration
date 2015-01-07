@@ -1,5 +1,5 @@
 ﻿using FsCheck;
-using FsCheckExploratoryTests.Utils;
+using FsCheckUtils;
 using NUnit.Framework;
 using FsCheck.Fluent;
 
@@ -9,7 +9,7 @@ namespace FsCheckExploratoryTests.FluentTests
     internal class FluentConfigurationTests
     {
         [Test]
-        public void MaxNbOfTest()
+        public void MaxTest()
         {
             Spec
                 .ForAny((int[] ints) => ints.Length >= 0 && ints.Length < 8)
