@@ -1,7 +1,7 @@
 using FsCheck;
+using FsCheckExploratoryTests.Utils;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
-using FsCheckExploratoryTests.Utils;
 
 namespace FsCheckExploratoryTests.RegularTests
 {

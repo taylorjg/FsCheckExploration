@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FsCheckExploratoryTests.Utils;
 using FsCheckUtils;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
