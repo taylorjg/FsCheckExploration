@@ -52,7 +52,7 @@ namespace FsCheckExploratoryTests.FluentTests
             gen.DumpSamples(Formatters.FormatCollection);
         }
 
-        [Test, Description("Same as Arb.from<>().Generator")]
+        [Test, Description("Same as Arb.generator<> - gets the currently registered generator for the given type (as opposed to the default generator for the given type)")]
         public void OfType()
         {
             var gen = Any.OfType<Tuple<char, double, bool, DateTime>>();

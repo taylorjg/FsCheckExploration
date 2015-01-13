@@ -1,3 +1,4 @@
+using FsCheckExploratoryTests.Utils;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
 using FsCheck;
@@ -35,9 +36,41 @@ namespace FsCheckExploratoryTests.RegularTests
         {
         }
 
+        private class MyIntArbitrary : Arbitrary<int>
+        {
+            public override Gen<int> Generator
+            {
+                get { return Gen.choose(10, 15); }
+            }
+        }
+
+        // ReSharper disable ClassNeverInstantiated.Local
+        private class MyArbitraries
+        {
+            // ReSharper disable UnusedMember.Local
+            // ReSharper disable MemberHidesStaticFromOuterClass
+            public static Arbitrary<int> MyIntArbitrary()
+            {
+                return new MyIntArbitrary();
+            }
+            // ReSharper restore MemberHidesStaticFromOuterClass
+            // ReSharper restore UnusedMember.Local
+        }
+        // ReSharper restore ClassNeverInstantiated.Local
+
         [Test]
         public void Generate()
         {
+            // Registers an Arbitrary<int> that produces values between 10-15 inclusive.
+            Arb.register<MyArbitraries>();
+
+            // This retrieves the special Arbitrary<int> that we just registered.
+            var gen1 = Arb.generate<int>();
+            gen1.DumpSamples();
+
+            // This retrieves the default Arbitrary<int>.
+            var gen2 = Arb.Default.Int32().Generator;
+            gen2.DumpSamples();
         }
 
         [Test]
