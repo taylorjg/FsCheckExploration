@@ -35,6 +35,20 @@ namespace FsCheckExploratoryTests.RegularTests
         }
 
         [Test]
+        public void GenOfPositiveInt()
+        {
+            var gen = Arb.Default.PositiveInt().Generator;
+            gen.DumpSamples(pi => pi.Get.ToString());
+        }
+
+        [Test]
+        public void GenOfNonNegativeInt()
+        {
+            var gen = Arb.Default.NonNegativeInt().Generator;
+            gen.DumpSamples(nni => nni.Get.ToString());
+        }
+
+        [Test]
         public void GenOfListOfInt()
         {
             var gen = Arb.from<IList<int>>().Generator;
