@@ -4,7 +4,7 @@ using CaseStudy;
 namespace CaseStudyUnitTests
 {
     [TestFixture]
-    internal class ReverserUnitTests
+    public class ReverserUnitTests
     {
         [TestCase(null)]
         [TestCase("")]
