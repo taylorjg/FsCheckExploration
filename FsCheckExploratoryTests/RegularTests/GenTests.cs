@@ -16,21 +16,21 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenOfString()
         {
-            var gen = Arb.from<string>().Generator;
+            var gen = Arb.generate<string>();
             gen.DumpSamples();
         }
 
         [Test]
         public void GenOfDateTime()
         {
-            var gen = Arb.from<DateTime>().Generator;
+            var gen = Arb.generate<DateTime>();
             gen.DumpSamples();
         }
 
         [Test]
         public void GenOfInt()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             gen.DumpSamples();
         }
 
@@ -51,14 +51,14 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenOfListOfInt()
         {
-            var gen = Arb.from<IList<int>>().Generator;
+            var gen = Arb.generate<IList<int>>();
             gen.DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenOfArrayOfInt()
         {
-            var gen = Arb.from<int[]>().Generator;
+            var gen = Arb.generate<int[]>();
             gen.DumpSamples(Formatters.FormatCollection);
         }
 
@@ -114,49 +114,49 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenArrayOf()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.arrayOf(gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenArrayOfLength()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.arrayOfLength(5, gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenArray2DOf()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.array2DOf(gen).DumpSamples(Formatters.Format2DArray);
         }
 
         [Test]
         public void GenArray2DOfDim()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.array2DOfDim(2, 3, gen).DumpSamples(Formatters.Format2DArray);
         }
 
         [Test]
         public void GenListOf()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.listOf(gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenNonEmptyListOf()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.nonEmptyListOf(gen).DumpSamples(Formatters.FormatCollection);
         }
 
         [Test]
         public void GenListOfLength()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.listOfLength(5, gen).DumpSamples(Formatters.FormatCollection);
         }
 
@@ -169,21 +169,21 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenTwo()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.two(gen).DumpSamples();
         }
 
         [Test]
         public void GenThree()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.three(gen).DumpSamples();
         }
 
         [Test]
         public void GenFour()
         {
-            var gen = Arb.from<int>().Generator;
+            var gen = Arb.generate<int>();
             Gen.four(gen).DumpSamples();
         }
 
@@ -200,7 +200,7 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenSuchThat()
         {
-            var genInt = Arb.from<int>().Generator;
+            var genInt = Arb.generate<int>();
             var genSuchThat = Gen.suchThat(FSharpFunc<int, bool>.FromConverter(i => i > 10 && i < 20), genInt);
             genSuchThat.DumpSamples();
         }
@@ -208,7 +208,7 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenSuchThatOption()
         {
-            var genInt = Arb.from<int>().Generator;
+            var genInt = Arb.generate<int>();
             var genSuchThatOption = Gen.suchThatOption(FSharpFunc<int, bool>.FromConverter(i => i > 10 && i < 20), genInt);
             genSuchThatOption.DumpSamples();
         }
@@ -239,7 +239,7 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenSized()
         {
-            var genInt = Arb.from<int>().Generator;
+            var genInt = Arb.generate<int>();
             var genSized = Gen.sized(FSharpFunc<int, Gen<int[]>>.FromConverter(size => Gen.arrayOfLength(size, genInt)));
             genSized.DumpSamples(Formatters.FormatCollection);
         }
@@ -247,7 +247,7 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void GenResize()
         {
-            var genIntArray = Arb.from<int[]>().Generator;
+            var genIntArray = Arb.generate<int[]>();
             var genResize = Gen.resize(20, genIntArray);
             genResize.DumpSamples(Formatters.FormatCollection);
         }
