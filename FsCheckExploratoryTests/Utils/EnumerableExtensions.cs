@@ -16,5 +16,24 @@ namespace FsCheckExploratoryTests.Utils
                 }).ToList();
             // ReSharper restore ReturnValueOfPureMethodIsNotUsed
         }
+
+        // https://github.com/fsharp/FsCheck/blob/master/docs/csharp/Properties.cs
+        public static bool IsOrdered<T>(this IEnumerable<T> source)
+        {
+            var comparer = Comparer<T>.Default;
+            var previous = default(T);
+            var first = true;
+
+            foreach (var element in source)
+            {
+                if (!first && comparer.Compare(previous, element) > 0)
+                {
+                    return false;
+                }
+                first = false;
+                previous = element;
+            }
+            return true;
+        }
     }
 }

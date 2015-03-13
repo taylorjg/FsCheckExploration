@@ -82,6 +82,7 @@
     <Compile Include="RegularTests\CheckTests.cs" />
     <Compile Include="RegularTests\CommandsTests.cs" />
     <Compile Include="RegularTests\DontShrinkTests.cs" />
+    <Compile Include="FluentTests\Employee.cs" />
     <Compile Include="RegularTests\GenOperatorsTests.cs" />
     <Compile Include="RegularTests\GenTests.cs" />
     <Compile Include="RegularTests\PropOperatorsTests.cs" />

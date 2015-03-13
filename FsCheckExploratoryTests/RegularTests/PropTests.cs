@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FsCheck;
+using FsCheckExploratoryTests.Utils;
+using FsCheckUtils;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
 
@@ -56,11 +58,13 @@ namespace FsCheckExploratoryTests.RegularTests
             Check.One(Config.QuickThrowOnFailure, property);
         }
 
+        // TODO: Move this into FsCheckUtils ?
         private static Property ChainProperties(bool b, params FSharpFunc<Property, Property>[] ps)
         {
             return ChainProperties(Prop.ofTestable(b), ps);
         }
 
+        // TODO: Move this into FsCheckUtils ?
         private static Property ChainProperties(Property p0, params FSharpFunc<Property, Property>[] ps)
         {
             return ps.Aggregate(p0, (acc, p) => p.Invoke(acc));
@@ -144,6 +148,29 @@ namespace FsCheckExploratoryTests.RegularTests
                 n => Prop.within(50, new Lazy<bool>(() => Math.Abs(n) >= 0)));
             var property = Prop.forAll(arb, body);
             Check.One(Config.QuickThrowOnFailure, property);
+        }
+
+        private static List<int> Insert(int x, List<int> xs)
+        {
+            // TODO: actually insert x into xs
+            return xs;
+        }
+
+        private static readonly FSharpFunc<int, FSharpFunc<List<int>, Property>> InsertCombined =
+            FSharpFunc<int, FSharpFunc<List<int>, Property>>.FromConverter(x =>
+                FSharpFunc<List<int>, Property>.FromConverter(xs =>
+                {
+                    var p0 = PropExtensions.Implies(xs.IsOrdered(), Insert(x, xs).IsOrdered());
+                    var p1 = Prop.classify<Property>(new[] {x}.Concat(xs).IsOrdered(), "at-head");
+                    var p2 = Prop.classify<Property>(xs.Concat(new[] {x}).IsOrdered(), "at-tail");
+                    var p3 = Prop.collect<int, Property>(xs.Count);
+                    return ChainProperties(p0, p1, p2, p3);
+                }));
+
+        [Test]
+        public void InsertCombinedTest()
+        {
+            Check.One(Config.VerboseThrowOnFailure.WithEndSize(10), InsertCombined);
         }
     }
 }

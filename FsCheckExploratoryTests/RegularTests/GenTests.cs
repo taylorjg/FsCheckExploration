@@ -319,7 +319,5 @@ namespace FsCheckExploratoryTests.RegularTests
                     n => gb.Return(Enumerable.Repeat(title, n))))));
             genMultipleBookTitles.DumpSamples(Formatters.FormatCollection);
         }
-
-        // TODO: Custom generator for a custom type e.g. Employee
     }
 }
