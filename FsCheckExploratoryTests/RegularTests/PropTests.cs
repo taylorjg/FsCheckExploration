@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FsCheck;
 using Microsoft.FSharp.Core;
 using NUnit.Framework;
@@ -22,6 +23,47 @@ namespace FsCheckExploratoryTests.RegularTests
                             Prop.classify<Property>(xs.Count > 5, "xs.Count > 5").Invoke(Prop.ofTestable(true)))));
             var property = Prop.forAll(arb, body);
             Check.One(Config.QuickThrowOnFailure, property);
+        }
+
+        [Test]
+        public void Classify2()
+        {
+            var arb = Arb.from<List<int>>();
+            var body = FSharpFunc<List<int>, Property>.FromConverter(xs =>
+            {
+                var p0 = Prop.ofTestable(true);
+                var p1 = Prop.classify<Property>(xs.Count <= 1, "xs.Count <= 1");
+                var p2 = Prop.classify<Property>(xs.Count >= 2 && xs.Count <= 5, "xs.Count >= 2 && xs.Count <= 5");
+                var p3 = Prop.classify<Property>(xs.Count > 5, "xs.Count > 5");
+                return p3.Invoke(p2.Invoke(p1.Invoke(p0)));
+            });
+            var property = Prop.forAll(arb, body);
+            Check.One(Config.QuickThrowOnFailure, property);
+        }
+
+        [Test]
+        public void Classify3()
+        {
+            var arb = Arb.from<List<int>>();
+            var body = FSharpFunc<List<int>, Property>.FromConverter(xs =>
+            {
+                var p1 = Prop.classify<Property>(xs.Count <= 1, "xs.Count <= 1");
+                var p2 = Prop.classify<Property>(xs.Count >= 2 && xs.Count <= 5, "xs.Count >= 2 && xs.Count <= 5");
+                var p3 = Prop.classify<Property>(xs.Count > 5, "xs.Count > 5");
+                return ChainProperties(true, p1, p2, p3);
+            });
+            var property = Prop.forAll(arb, body);
+            Check.One(Config.QuickThrowOnFailure, property);
+        }
+
+        private static Property ChainProperties(bool b, params FSharpFunc<Property, Property>[] ps)
+        {
+            return ChainProperties(Prop.ofTestable(b), ps);
+        }
+
+        private static Property ChainProperties(Property p0, params FSharpFunc<Property, Property>[] ps)
+        {
+            return ps.Aggregate(p0, (acc, p) => p.Invoke(acc));
         }
 
         [Test]
