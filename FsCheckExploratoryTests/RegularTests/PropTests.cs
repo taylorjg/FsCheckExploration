@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using FsCheck;
 using Microsoft.FSharp.Core;
@@ -36,11 +37,21 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void ForAll()
         {
+            var arb = Arb.from<int>();
+            var body = FSharpFunc<int, bool>.FromConverter(
+                n => Math.Abs(n) >= 0);
+            var property = Prop.forAll(arb, body);
+            Check.One(Config.QuickThrowOnFailure, property);
         }
 
         [Test]
         public void Given()
         {
+            var arb = Arb.from<int>();
+            var body = FSharpFunc<int, Property>.FromConverter(
+                n => Prop.given(n >= 0, n + n >= 0, n + n < 0));
+            var property = Prop.forAll(arb, body);
+            Check.One(Config.QuickThrowOnFailure, property);
         }
 
         [Test]
@@ -66,6 +77,11 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void Throws()
         {
+            var arb = Arb.fromGen(Gen.constant(0));
+                var body = FSharpFunc<int, Property>.FromConverter(
+                n => Prop.throws<DivideByZeroException, bool>(new Lazy<bool>(() => 10/n > 0)));
+            var property = Prop.forAll(arb, body);
+            Check.One(Config.QuickThrowOnFailure, property);
         }
 
         [Test]
@@ -81,6 +97,11 @@ namespace FsCheckExploratoryTests.RegularTests
         [Test]
         public void Within()
         {
+            var arb = Arb.from<int>();
+            var body = FSharpFunc<int, Property>.FromConverter(
+                n => Prop.within(50, new Lazy<bool>(() => Math.Abs(n) >= 0)));
+            var property = Prop.forAll(arb, body);
+            Check.One(Config.QuickThrowOnFailure, property);
         }
     }
 }
